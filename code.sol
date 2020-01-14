@@ -13,7 +13,6 @@ contract Project{
         struct drug{
             string nameOfDrug;
             uint mrp;
-            
             string ingredients;
         }
         
@@ -86,6 +85,7 @@ contract Project{
         }
         
         function supplierUpdate(uint _drugId, uint _quantity, string memory _ingredients) public{
+            require(_drugId<=noOfDrugs);
             suppliers[msg.sender].drugId=_drugId;
             suppliers[msg.sender].quantity+=_quantity;
             suppliers[msg.sender].ingredients=_ingredients;
@@ -94,7 +94,7 @@ contract Project{
         function buyManufacturer(uint _drugId, address payable supplierAddress, uint _quantity) public payable {
             require(msg.value == drugs[_drugId].mrp*_quantity);
             require(_quantity>=1000);
-            require(_drugId<noOfDrugs);
+            require(_drugId<=noOfDrugs);
           
             if(suppliers[supplierAddress].drugId==_drugId) {
                 if(suppliers[supplierAddress].quantity>=_quantity){
@@ -110,15 +110,28 @@ contract Project{
         function buyRetailer(uint _drugId, address payable manufacturerAddress, uint _quantity) public payable {
             require(msg.value == drugs[_drugId].mrp*_quantity);
             require(_quantity<=50);
-            require(_drugId<noOfDrugs);
+            require(_drugId<=noOfDrugs);
           
             if(manufacturers[manufacturerAddress].drugId==_drugId) {
                 if(manufacturers[manufacturerAddress].quantity>=_quantity){
                     manufacturers[manufacturerAddress].quantity-=_quantity;
-                    retailers[msg.sender].count++;
-                    uint value=retailers[msg.sender].count;
-                    retailers[msg.sender].medicines[value]=_drugId;
-                    retailers[msg.sender].quantity[value]+=_quantity;
+                    bool existing=false;
+                    uint pos;
+                    for(uint i=0; i<retailers[msg.sender].medicines.length; i++){
+                        if(retailers[msg.sender].medicines[i]==_drugId){
+                            existing=true;
+                            pos=i;
+                            break;
+                        }
+                    }
+                    if(existing==true){
+                        retailers[msg.sender].quantity[pos]+=_quantity;
+                    }
+                    else{
+                        retailers[msg.sender].medicines.push(_drugId);
+                        retailers[msg.sender].quantity.push(_quantity);
+                        retailers[msg.sender].count++;
+                    }
                     manufacturerAddress.transfer(msg.value);
                 }
             }
@@ -128,16 +141,18 @@ contract Project{
         function buyCustomer(uint drugId, uint _quantity, address payable retailerAddress) public payable{
             require(msg.value == drugs[drugId].mrp*_quantity);
             require(_quantity<=50);
-            require(drugId<noOfDrugs);
+            require(drugId<=noOfDrugs);
+           
             bool available=false;
             uint variable;
-            for(uint i=1; i<10; i++){
+            for(uint i=1; i<retailers[retailerAddress].medicines.length; i++){
                 if(retailers[retailerAddress].medicines[i]==drugId) {
                     variable=i;
                     available=true;
                 }
             }
-            if(available){
+            require(retailers[retailerAddress].quantity[variable]>=_quantity);
+            if(available==true){
                 if(retailers[retailerAddress].quantity[variable] >= _quantity){
                     retailers[retailerAddress].quantity[variable] -= _quantity;
                     retailerAddress.transfer(msg.value);   
@@ -146,5 +161,8 @@ contract Project{
             }
         }
         
+        function getBalance(address _thisAddress) public view returns(uint256){
+            return _thisAddress.balance;
+        }
         
 }   
