@@ -19,24 +19,6 @@ contract Mall{
     
     mapping (address => users) public credentials;
     
-    uint numberOfMovies=0;
-    
-    struct movie{
-        address payable buyer;
-        address payable seller;
-        uint id;
-        string name;
-        string date;
-        string venue;
-        uint price;
-        uint count;
-        bool status;//To check if ticket is still available
-        bool active;//To record consent
-        string referenceNumber;
-    }
-    
-    mapping(uint => movie) public movies;
-    
     uint noOfOrders=0;
     
     struct grocery{
@@ -110,8 +92,7 @@ contract Mall{
     }
     
     mapping(address => vehicleInsure) public vehicleInsurers;
-    
-    
+
     struct healthInsure{
         string name;
         string licenseNo;
@@ -150,66 +131,6 @@ contract Mall{
     }
     
     mapping(address => dealer) public dealers;
-    
-    uint noOfePayments=0;
-    struct electricity{
-        string accountNo;
-        uint price;
-        uint id;
-        address payer;
-    }
-    
-    mapping(uint => electricity) public ebill;
-    
-    uint noOfdPayments=0;
-    struct ebillCollector{
-        string name;
-        string licenseNo;
-        uint positiveFeedback;
-        uint negativeFeedback;
-        bool active;
-    }
-    
-    mapping(address => ebillCollector) public ebillCollectors;
-    
-    struct dth{
-        string accountNo;
-        uint price;
-        uint id;
-        address payer;
-    }
-    
-    mapping(uint => dth) public dbill;
-    
-    uint noOfmPayments=0;
-    struct dbillCollector{
-        string name;
-        string licenseNo;
-        uint positiveFeedback;
-        uint negativeFeedback;
-        bool active;
-    }
-    
-    mapping(address => dbillCollector) public dbillCollectors;
-    
-    struct mobile{
-        string mobileNo;
-        uint price;
-        uint id;
-        address payer;
-    }
-    
-    mapping(uint => mobile) public mbill;
-    
-    struct mbillCollector{
-        string name;
-        string licenseNo;
-        uint positiveFeedback;
-        uint negativeFeedback;
-        bool active;
-    }
-    
-    mapping(address => mbillCollector) public mbillCollectors;
     
     //Registration and Validation
     function register(string memory password, string memory field) public {
@@ -266,7 +187,7 @@ contract Mall{
         vehicleInsurers[msg.sender].active=true;
     }
     
-    function ebillRegister(string memory licenseNo, string memory name) public {
+    function companyRegister(string memory licenseNo, string memory name) public {
         bool flag=false;
         for(uint i=0; i<numberOfUsers; i++){
             if(credentials[msg.sender].active==true){
@@ -279,79 +200,6 @@ contract Mall{
         dealers[msg.sender].licenseNo=licenseNo;
         dealers[msg.sender].name=name;
         dealers[msg.sender].active=true;
-    }
-    
-    function mbillRegister(string memory licenseNo, string memory name) public {
-        bool flag=false;
-        for(uint i=0; i<numberOfUsers; i++){
-            if(credentials[msg.sender].active==true){
-                flag=true;
-                credentials[msg.sender].registered=true;
-                break;
-            }
-        }
-        require(flag==true);
-        mbillCollectors[msg.sender].licenseNo=licenseNo;
-        mbillCollectors[msg.sender].name=name;
-    }
-    
-    function dbillRegister(string memory licenseNo, string memory name) public {
-        bool flag=false;
-        for(uint i=0; i<numberOfUsers; i++){
-            if(credentials[msg.sender].active==true){
-                flag=true;
-                credentials[msg.sender].registered=true;
-                break;
-            }
-        }
-        require(flag==true);
-        dbillCollectors[msg.sender].licenseNo=licenseNo;
-        dbillCollectors[msg.sender].name=name;
-        dbillCollectors[msg.sender].active=true;
-    }
-    
-    function companyRegister(string memory licenseNo, string memory name) public {
-        bool flag=false;
-        for(uint i=0; i<numberOfUsers; i++){
-            if(credentials[msg.sender].active==true){
-                flag=true;
-                credentials[msg.sender].registered=true;
-                break;
-            }
-        }
-        require(flag==true);
-        dbillCollectors[msg.sender].licenseNo=licenseNo;
-        dbillCollectors[msg.sender].name=name;
-        dbillCollectors[msg.sender].active=true;
-    }
-    
-    //Movies
-    //Status needs to be false initially. That way, when it is booked, the status can be modified to true
-    function RMovie(string memory name, string memory date, string memory venue, uint price, uint count, string memory referenceNumber) public {
-        numberOfMovies++;
-        movies[numberOfMovies].name=name;
-        movies[numberOfMovies].date=date;
-        movies[numberOfMovies].venue=venue;
-        movies[numberOfMovies].price=price;
-        movies[numberOfMovies].status=false;
-        movies[numberOfMovies].seller=msg.sender;
-        movies[numberOfMovies].id=numberOfMovies;
-        movies[numberOfMovies].count=count;
-        movies[numberOfMovies].active=true;
-        movies[numberOfMovies].referenceNumber=referenceNumber;
-    }
-    
-    function purchaseMovie(uint id, uint quantity) public payable{
-        require(movies[id].price*quantity == msg.value);
-        require(movies[id].active==true);
-        movies[id].status=true;
-        movies[id].buyer=msg.sender;
-        movies[id].seller.transfer(msg.value);
-    }
-    
-    function viewMovieRef(uint id) public view returns(string memory) {
-        require(movies[id].buyer==msg.sender);
-        return (movies[id].referenceNumber);
     }
     
     //Grocery
@@ -397,6 +245,7 @@ contract Mall{
         VehicleInsurance[noOfVehicleInsurance].customer=msg.sender;
         VehicleInsurance[noOfVehicleInsurance].status=false;
         VehicleInsurance[noOfVehicleInsurance].active=true;
+        VehicleInsurance[noOfVehicleInsurance].id=noOfVehicleInsurance;
     }
     
     function insureVehicle(uint referenceNumber, uint id, uint price) public {
@@ -413,7 +262,7 @@ contract Mall{
         require(VehicleInsurance[id].referenceNumber==referenceNumber);
         require(VehicleInsurance[id].price==msg.value);
         VehicleInsurance[id].partner.transfer(msg.value);
-        VehicleInsurance[id].paid==true;
+        VehicleInsurance[id].paid=true;
     }
     
     function viewVehicleRef(uint id) public view returns(uint,uint) {
@@ -447,7 +296,7 @@ contract Mall{
         require(healthInsurance[id].referenceNumber==referenceNumber);
         require(healthInsurance[id].price==msg.value);
         healthInsurance[id].partner.transfer(msg.value);
-        healthInsurance[id].paid==true;
+        healthInsurance[id].paid=true;
     }
     
     function viewHealthRef(uint id) public view returns(uint,uint) {
@@ -485,43 +334,6 @@ contract Mall{
         deals[id].paid=true;
     }
     
-    //Bill payments
-    function eBillPay(address payable payee, string memory accountNo) public payable{
-        require(ebillCollectors[payee].active==true);
-        noOfePayments++;
-        ebill[noOfePayments].payer=msg.sender;
-        ebill[noOfePayments].price=msg.value;
-        ebill[noOfePayments].id=noOfePayments;
-        ebill[noOfePayments].accountNo=accountNo;
-        payee.transfer(msg.value);
-    }
-    
-    function dBillPay(address payable payee, string memory accountNo) public payable{
-        require(dbillCollectors[payee].active==true);
-        noOfdPayments++;
-        dbill[noOfePayments].payer=msg.sender;
-        dbill[noOfePayments].price=msg.value;
-        dbill[noOfePayments].id=noOfePayments;
-        dbill[noOfePayments].accountNo=accountNo;
-        payee.transfer(msg.value);
-    }
-    
-    function mBillPay(address payable payee, string memory mobileNo) public payable{
-        require(mbillCollectors[payee].active==true);
-        noOfmPayments++;
-        mbill[noOfePayments].payer=msg.sender;
-        mbill[noOfePayments].price=msg.value;
-        mbill[noOfePayments].id=noOfePayments;
-        mbill[noOfePayments].mobileNo=mobileNo;
-        payee.transfer(msg.value);
-    }
-    
-    //Consent Revocation
-    function consentMovie(uint id) public {
-        require(movies[id].seller==msg.sender);
-        movies[id].active=false;
-    }
-    
     function consentGrocery(uint id) public {
         require(groceries[id].customer==msg.sender);
         groceries[id].active=false;
@@ -542,55 +354,4 @@ contract Mall{
         deals[id].active=false;    
     }
     
-    //Feedback system
-    function feedbackGrocer(uint id, uint feedback) public {
-        require(groceries[id].customer==msg.sender);
-        if(feedback==1){
-            grocersList[groceries[id].partner].positiveFeedback++;
-        }
-        else if(feedback==0){
-            grocersList[groceries[id].partner].negativeFeedback++;
-        }
-    }
-    
-    function feedbackHealthInsurace(uint id, uint feedback) public {
-        require(healthInsurance[id].customer==msg.sender);
-        if(feedback==1){
-            healthInsurers[healthInsurance[id].partner].positiveFeedback++;
-        }
-        else if(feedback==0){
-            healthInsurers[healthInsurance[id].partner].negativeFeedback++;
-        }
-    }
-    
-    function feedbackVehicleInsurance(uint id, uint feedback) public {
-        require(VehicleInsurance[id].customer==msg.sender);
-        if(feedback==1){
-            vehicleInsurers[VehicleInsurance[id].partner].positiveFeedback++;
-        }
-        else if(feedback==0){
-            vehicleInsurers[VehicleInsurance[id].partner].negativeFeedback++;
-        }
-    }
-    
-    function feedbackDealer(uint id, uint feedback) public {
-        require(deals[id].customer==msg.sender);
-        if(feedback==1){
-            dealers[deals[id].seller].positiveFeedback++;
-        }
-        else if(feedback==0){
-            dealers[deals[id].seller].negativeFeedback++;
-        }
-    }
-    /*
-    function feedbackGrocer(uint id, uint feedback) public {
-        require(groceries[id].customer==msg.sender);
-        if(feedback==1){
-            grocersList[groceries[id].partner].positiveFeedback++;
-        }
-        else if(feedback==0){
-            grocersList[groceries[id].partner].negativeFeedback++;
-        }
-    }
-    */
 }
