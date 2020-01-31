@@ -3437,6 +3437,7 @@ input[type="button"].btn-block {
   display: block; }
 
 .navbar {
+
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3466,6 +3467,7 @@ input[type="button"].btn-block {
     -ms-flex-pack: justify;
     justify-content: space-between;
     /* header colour*/
+    min-width: 100%;
     background-color: #D5F5E3  }
 
 .navbar-brand {
@@ -3489,6 +3491,7 @@ input[type="button"].btn-block {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+
   padding-left: 0;
   margin-bottom: 0;
   list-style: none; }
@@ -3621,7 +3624,7 @@ input[type="button"].btn-block {
     padding-right: 0;
     padding-left: 0; } }
 
-@media (min-width: 992px) {
+@media (min-width: 995px) {
   .navbar-expand-lg {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -8492,7 +8495,7 @@ h1, h2, h3, h4, h5,
           background: #fff; }
 
 .bg-light {
-  background: #f7f6f2 !important; }
+  background: #ffffff !important; }
 
 .bg-primary {
   background: #82ae46; }
