@@ -23,6 +23,7 @@ contract Health_care{
         string name;
         address[] patientsVisited;
         bool active;
+        string[] reports;
     }
     
     mapping(uint => hospitals) public hospitalDetails;
@@ -78,6 +79,23 @@ contract Health_care{
         uint price;
     }
     
+    uint noOfMedicalReports=0;
+    struct medical{
+        uint customerId;
+        uint hospitalId;
+        uint id;
+        address patient;
+        address payable hospital;
+        string insuranceHash;
+        string reportHash;
+        uint billAmount;
+        bool paid;
+        bool active;
+        uint time;
+    }
+    
+    mapping(uint => medical) public medicalReports;
+    
     mapping(uint => RequireInsurance) public insuranceRequests;
     //Registration
     function register(uint choice, string memory name) public {
@@ -116,6 +134,7 @@ contract Health_care{
         uint givenFor;
         string hash;
         bool active;
+        
     }
     
     mapping(uint => consent) public Consent;
@@ -166,6 +185,67 @@ contract Health_care{
         require(Consent[consentId].givenFor > now);
         require(Consent[consentId].active==true);
         return (Consent[consentId].hash);
+    }
+    
+    function visitHospital(string memory insuranceHash, address payable hospitalAddress, uint time, uint customerId) public {
+        noOfMedicalReports++;
+        medicalReports[noOfMedicalReports].customerId=customerId;
+        medicalReports[noOfMedicalReports].patient=msg.sender;
+        medicalReports[noOfMedicalReports].active=true;
+        medicalReports[noOfMedicalReports].insuranceHash=insuranceHash;
+        medicalReports[noOfMedicalReports].hospital=hospitalAddress;
+        medicalReports[noOfMedicalReports].time=now+time;
+    }
+    
+    function hospitalInsuranceView(uint id) public view returns(string memory){
+        require(medicalReports[id].hospital==msg.sender);
+        require(medicalReports[id].active==true);
+        require(medicalReports[id].time>now);
+        return (medicalReports[id].insuranceHash);
+    }
+    
+    function hospitalUpdate(string memory medicalHash, uint bill, uint id, uint hospitalId) public{
+        require(medicalReports[id].hospital==msg.sender);
+        medicalReports[id].billAmount=bill;
+        medicalReports[id].hospitalId=hospitalId;
+        medicalReports[id].reportHash=medicalHash;
+    }
+    
+    function payHospital(uint id) public payable{
+        require(medicalReports[id].patient==msg.sender);
+        require(medicalReports[id].billAmount==msg.value);
+        medicalReports[id].paid=true;
+        customerDetails[medicalReports[id].customerId].hashOfMedicalReports.push(medicalReports[id].reportHash);
+        hospitalDetails[medicalReports[id].hospitalId].patientsVisited.push(medicalReports[id].patient);
+        hospitalDetails[medicalReports[id].hospitalId].reports.push(medicalReports[id].reportHash);
+    }
+    //Getter Functions
+    function getNumberOfCustomers() public view returns(uint){
+        return noOfCustomers;
+    }
+    
+    function getNumberOfHospitals() public view returns(uint){
+        return noOfHospitals;
+    }
+    
+    function getNumberOfInsurers() public view returns(uint){
+        return noOfInsurers;
+    }
+    
+    function getNumberOfTrainers() public view returns(uint){
+        return noOfTrainers;
+    }
+    
+    function getNumberOfDoctors() public view returns(uint){
+        return noOfDoctors;
+    }
+    
+    function getNumberOfConsent() public view returns(uint){
+        return noOfConsent;
+    }
+    
+    function getNumberOfInsurance() public view returns(uint){
+        return insuranceId;
     }
 }
     
