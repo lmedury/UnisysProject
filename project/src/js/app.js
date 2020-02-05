@@ -128,19 +128,45 @@ App = {
       });
     });
     
-    $("#invalid").click(async function() {
-      var id=$("#evId").val();
-      var address=$("#address").val();
-      App.contract.invalidItinerary(id,address,{from: App.account},function(error,result){
+    $("#groceryPay").click(async function() {
+      var gid=$("#gid").val();
+      var  greferenceNumber=$("#greferenceNumber").val();
+      var etherAmount = web3.toBigNumber($("#sendWei").val());
+      var weiValue = web3.toWei(etherAmount,'wei');
+      App.contract.payGrocer(gid,greferenceNumber,{from: App.account,value: weiValue},function(error,result){
       if(error) console.log(error);
       else console.log(result);
       });
     });
 
-    $("#claim").click(async function() {
-      var id=$("#id").val();
-      var quantity=$("#quantity").val();
-      App.contract.FreeTransfer(id,quantity,{from: App.account},function(error,result){
+    $("#dealPay").click(async function() {
+      var did=$("#did").val();
+      var  dreferenceNumber=$("#dreferenceNumber").val();
+      var etherAmount = web3.toBigNumber($("#sendWei").val());
+      var weiValue = web3.toWei(etherAmount,'wei');
+      App.contract.payDeal(did,dreferenceNumber,{from: App.account,value: weiValue},function(error,result){
+      if(error) console.log(error);
+      else console.log(result);
+      });
+    });
+
+    $("#healthPay").click(async function() {
+      var hid=$("#hid").val();
+      var  hreferenceNumber=$("#hreferenceNumber").val();
+      var etherAmount = web3.toBigNumber($("#sendWei").val());
+      var weiValue = web3.toWei(etherAmount,'wei');
+      App.contract.payHealthInsurace(hid,hreferenceNumber,{from: App.account,value: weiValue},function(error,result){
+      if(error) console.log(error);
+      else console.log(result);
+      });
+    });
+
+    $("#vehiclePay").click(async function() {
+      var vid=$("#vid").val();
+      var  vreferenceNumber=$("#vreferenceNumber").val();
+      var etherAmount = web3.toBigNumber($("#sendWei").val());
+      var weiValue = web3.toWei(etherAmount,'wei');
+      App.contract.payVehicleInsurace(vid,vreferenceNumber,{from: App.account,value: weiValue},function(error,result){
       if(error) console.log(error);
       else console.log(result);
       });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Health Insurance</title>
+    <title>Home_Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  
@@ -28,77 +28,77 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
-  <body class="goto-here">
-	
+  <body class="goto-here" >
+  
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Home</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active">
-	          <!--<a href="index.html" class="nav-link">Home</a></li>-->
-	          <li class="nav-item dropdown"></li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item"><a href="index.html" class="nav-link">Logout</a></li>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+            <!--<a href="index.html" class="nav-link">Home</a></li>-->
+            <li class="nav-item dropdown"></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="index.html" class="nav-link">Logout</a></li>
 
-	 
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-
- <section class="ftco-section contact-section">
+   
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- END nav -->
+<section class="ftco-section contact-section bg-light">
       <center>
       <div class="container">
-          <div class="col-md-6 order-md-last d-flex">
-
-            <form action="post" class="bg-white p-5 contact-form",width="100%">
-
-             <a class="navbar-brand" >Health Insurance</a>
-             <p>Good Health ,Better Future</p>
-             <p>Make An Insurance </p>
-
-            <div class="form-group">
-                <input name="hname" id="hname" type="text" class="form-control" placeholder="Name" required>
-              </div>
-
-             <div class="form-group">
-                <textarea  name="hhistory" id="hhistory" cols="30" rows="7" class="form-control" placeholder="Past history of diseases  by separated with ',' comma" required></textarea>
-              </div>
-              
         
+          <div class="col-md-6 order-md-last d-flex">
+            <form  action="POST"class="bg-white p-5 contact-form",width="100%">
               <div class="form-group">
-                <input name="hage" id="hage" type="number" class="form-control" placeholder="Age" required>
+                <h2>What would you like to see?</h2>
+                
+                <a href="groceryOrders.html" class="btn btn-primary py-3 px-5" style="width: 300px; height: 50px; role="button" >Grocery Orders</a>
+                
+                
+              </div>
+
+                <div class="form-group">
+                  <div class="dropdown">
+                       <button class="btn btn-primary py-3 px-5,btn-primary.dropdown-toggle" style="width: 300px; height: 50px;" >Insurance</button>
+                          
+                          <div class="dropdown-content">
+                            <center>
+                           <a href="HealthRequests.html" style="width: 300px; height: 50px;">Health Insurance Requests</a>
+                           <a href="VehicleRequests.html">Auto Insurance Requests</a>
+                              </center>
+                          </div>
+
+                         </div>
+                  
+                </div>
+
+              <div class="form-group">
+               <a href="DealRequests.html" class="btn btn-primary py-3 px-5" style="width: 300px; height: 50px; role="button">Deal requests</a>
+              </div>
               
-              <div class="form-group">
-                <input name="hbudget" id="hbudget" type="number" class="form-control" placeholder="Your Budget" required>
-              </div>
-              <div class="form-group">
-                <button id="insuranceRequest" type="submit" class="btn btn-primary py-3 px-5">Post your Request</button>
-                <p id="accountAddress" class="text-center"></p>
-              </div>
+
             </form>
           </div>
           </center>
     </section>
-
-
-
-
     <footer class="ftco-footer ftco-section">
       <div class="container">
-      	<div class="row">
-      		<div class="mouse">
-						<a href="#" class="mouse-icon">
-							<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-						</a>
-					</div>
-      	</div>
+        <div class="row">
+          <div class="mouse">
+            <a href="#" class="mouse-icon">
+              <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+            </a>
+          </div>
+        </div>
         <div class="row mb-5">
          
           <div class="col-md">
@@ -127,14 +127,14 @@
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">Aziznagar Gate, Chilkur Balaji Road, Hyderabad, Telangana 500075</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">84132 35300</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">TeamBlockChain@tbc.com</span></a></li>
-	              </ul>
-	            </div>
+              <h2 class="ftco-heading-2">Have a Questions?</h2>
+              <div class="block-23 mb-3">
+                <ul>
+                  <li><span class="icon icon-map-marker"></span><span class="text">Aziznagar Gate, Chilkur Balaji Road, Hyderabad, Telangana 500075</span></li>
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">84132 35300</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">TeamBlockChain@tbc.com</span></a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -142,9 +142,9 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						  Copyright &copy;All rights reserved | This template is made with <i class="icon-heart color-danger" ></i> by <a href="#" >TeamBlockChain</a>
-						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</p>
+              Copyright &copy;All rights reserved | This template is made with <i class="icon-heart color-danger" ></i> by <a href="#" >TeamBlockChain</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
           </div>
         </div>
       </div>
@@ -172,21 +172,47 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="js/grayscale.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/web3.min.js"></script>
-    <script src="js/truffle-contract.js"></script>    
-    <script src="js/app.js"></script>
     
   </body>
+  <style>
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+
+}
+
+.dropdown {
+   
+  position: relative;
+  display: inline-block;
+
+}
+
+.dropdown-content {
+  display: none;
+
+  position: absolute;
+  background-color: #82ae46;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  /*text-decoration: none;*/
+  text-align: center;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
 </html>
